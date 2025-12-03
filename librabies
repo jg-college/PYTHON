@@ -1,0 +1,83 @@
+func.py
+
+import math
+
+
+def add(a, b):
+    return a + b
+
+def square(n):
+    return n*n
+
+def count_words(text):
+    c=0
+    for word in text.split():
+        c+=1
+    return c
+
+def remove_spaces(text):
+    txt=""
+    for word in text.split():
+        txt+=word
+    return txt
+
+def area_of_circle(radius):
+    area = math.pi*radius**2
+    return area
+
+def format_study_plan(date_str, topic):
+    return f"On {date_str}, you will study: {topic}"
+
+main.py
+
+import math
+import random
+import datetime
+from time import strftime
+import string
+import func
+import math as m
+#EXERCISES
+print(math.sqrt(81))
+print(math.pi)
+print(math.factorial(5))
+print(random.randint(1,50))
+print(random.choice(['apple','banana','mango']))
+print(strftime("%d-%m-%Y"))#datetime.date.today()
+print(func.add(10,35))
+print(func.square(25))
+print(m.sin(0))
+print(m.cos(0))
+print(m.tan(m.radians(45)))
+#CHALLENGES
+password=""
+ch=string.ascii_lowercase+string.digits+string.ascii_uppercase
+for i in range(8):
+    password+=random.choice(ch)
+print(password)
+
+a=input("Enter First Date : ")
+b=input("Enter Second Date : ")
+a= datetime.datetime.strptime(str(a),"%d-%m-%Y")
+b= datetime.datetime.strptime(str(b),"%d-%m-%Y")
+print(abs(a-b).days,"days")
+
+print(func.count_words("hello python world"))
+print(func.remove_spaces("hi how are you"))
+
+print(func.area_of_circle(7))
+print(math.ceil(7.89))
+print(math.floor(7.89))
+
+a=random.randint(1,10)
+b=random.randint(1,10)
+c=int(input(f"What is {a} + {b} ?"))
+if c==a+b:
+    print("Correct")
+
+#TASK
+topics = ["Python Basics", "Loops", "Functions", "Modules", "File Handling"]
+r=random.choice(topics)
+d=strftime("%d-%m-%Y")
+print(f"Today's Date : {d}\nToday's Topic : {r}")
+print(func.format_study_plan(d, r))
