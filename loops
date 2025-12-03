@@ -1,0 +1,49 @@
+#EXERCISES
+for i in range(1,11):
+    print(i)
+    if i == 7:
+        break
+
+for i in range(1,11):
+    if i == 5:
+        continue
+    print(i)
+
+for i in range(1,11):
+    if i == 3:
+        pass
+    print(i)
+#CHALLENGES
+for i in range(1,101):
+    if i % 63 == 0:
+        print(i)
+        break
+
+for i in range(1,21):
+    if i % 3 == 0 or i % 5 == 0:
+        continue
+    print(i)
+
+str1=input("enter string")
+for s in str1:
+    if s in 'ae':
+        pass
+    else:
+        print(s)
+#TASK
+attempt = 0
+
+while attempt < 3:
+    username = input("enter username: ")
+    password = int(input("enter password: "))
+
+    if username != 'admin' or password != 1234:
+        attempt += 1
+        print("Invalid Credentials")
+        print("Attempts left:", 3 - attempt)
+    else:
+        print("Login Successful")
+        break
+
+if attempt == 3:
+    print("Access Denied")
