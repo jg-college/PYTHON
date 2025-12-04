@@ -1,0 +1,94 @@
+#EXERCISES
+with open("notes.txt","w") as f:
+    f.write("Python File Handling\nLearning step by step")
+
+with open("notes.txt","r") as f:
+    for line in f:
+        print(line)
+
+with open("notes.txt","a") as f:
+    f.write("\nAppending new content")
+
+with open("notes.txt","r") as f:
+    for line in f:
+        print(line.rstrip())
+
+with open("numbers.txt","w") as f:
+    for i in range(1,6):
+        f.write(str(i))
+        f.write("\n")
+
+#CHALLENGES
+
+with open("data.txt","w+") as file:
+    file.write("apple\nbanana\ncherry\nmango\norange")
+with open("data.txt","r") as file:
+    lines=[line.upper() for line in file]
+
+with open("data_upper.txt","w+") as file:
+    file.writelines(lines)
+
+with open("scores.txt","w") as f:
+    f.write('45\n78\n89\n32\n90\n56\n12\n99')
+with open("scores.txt","r") as f:
+    istr=[int(i) for i in f.readlines()]
+    a=[b for b in istr if b > 50]
+with open("scores_filtered.txt","w") as f:
+    for num in a:
+        f.write(str(num)+"\n")
+
+# Step 1: Create the log file
+with open("log.txt", "w") as f:
+    f.write(
+        "INFO: System started\n"
+        "ERROR: Failed to load module\n"
+        "INFO: User logged in\n"
+        "WARNING: Low battery\n"
+        "ERROR: Disk not found\n"
+        "INFO: Shutdown initiated\n"
+    )
+
+# Step 2: Read and filter error lines
+with open("log.txt", "r") as f:
+    errors = [line for line in f if line.startswith("ERROR")]
+
+# Step 3: Write errors to new file
+with open("errors.txt", "w") as f:
+    f.writelines(errors)
+
+c=0 #count
+with open("story.txt", "w") as f:
+    f.write(
+        "Python is easy to learn.\n"
+        "Python is powerful.\n"
+        "many developers learn Python because it is simple and readable.\n"
+        "Python can be used for web development,data science,automation and more."
+    )
+with open("story.txt", "r") as f:
+    for line in f:
+        c += line.count("Python")
+with open("count.txt", "w") as f:
+    f.write(f"Python appears {c} times.")
+
+with open("students.txt", "w") as f:
+    f.write("Rahul,85\nMegha,42\nArjun,91\nSneha,33\nRohan,76\nKriti,59\nAditya,28")
+
+with open("students.txt", "r") as f:
+    # open output files once, outside the loop
+    passed = open("passed.txt", "w")
+    failed = open("failed.txt", "w")
+
+    for line in f:
+        name, marks = line.strip().split(",")
+        marks = int(marks)
+
+        if marks >= 50:
+            passed.write(f"{name} - {marks}\n")
+        else:
+            failed.write(f"{name} - {marks}\n")
+
+    passed.close()
+    failed.close()
+
+#TASK
+
