@@ -91,4 +91,36 @@ with open("students.txt", "r") as f:
     failed.close()
 
 #TASK
+p=0
+a=0
+l=0
+t=0
 
+present=open("present.txt","w")
+absent=open("absent.txt","w")
+
+with open("attendance.txt","r")as f:
+    for line in f:
+        name,date,status=line.strip().split(",")
+        t+=1
+        if status.lower()=="present":
+            p+=1
+            present.write(f"{name},{date},{status}\n")
+
+        elif status.lower()=="absent":
+            a+=1
+            absent.write(f"{name},{date},{status}\n")
+
+        elif status.lower()=="late":
+            l+=1
+
+present.close()
+absent.close()
+
+with open("summary.txt","w")as f:
+    f.write(
+        f"Total records : {t}"
+        f"Present : {p}"
+        f"Absent : {a}"
+        f"Late : {l}"
+    )
