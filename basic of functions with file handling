@@ -1,0 +1,24 @@
+def reading(filename):
+    with open(filename, 'r') as f:
+        return f.readlines()
+
+def parsing(line):
+    name, marks = line.strip().split(',')
+    return name, int(marks)
+
+def logic(marks, pass_mark):
+    if marks >= pass_mark:
+        return "PASS"
+    else:
+        return "FAIL"
+
+def writing(filename, text):
+    with open(filename, 'a') as f:
+        f.write(text + "\n")
+
+lines = reading('marks.txt')
+
+for line in lines:
+    name, marks = parsing(line)
+    result = logic(marks, 40)
+    writing("Results.txt", f"{name},{marks},{result}")
