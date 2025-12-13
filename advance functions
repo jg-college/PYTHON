@@ -1,0 +1,32 @@
+employees = [
+    {"name": "Amit", "age": 22, "hours": 48, "salary": 30000},
+    {"name": "Riya", "age": 28, "hours": 55, "salary": 60000},
+    {"name": "Samar", "age": 19, "hours": 42, "salary": 25000},
+    {"name": "Megha", "age": 35, "hours": 60, "salary": 80000},
+    {"name": "Tarun", "age": 24, "hours": 38, "salary": 40000}
+]
+
+#STEP-1
+def is_eligible(emp):
+    return emp['hours'] >= 45
+eligible = filter(is_eligible, employees)
+
+#STEP-2
+def is_at_risk(emp1):
+    return emp1['age'] > 25 and emp1['hours'] > 50
+risk = filter(is_at_risk,eligible)
+
+#STEP-3
+salary_increment=map(
+    lambda x: {
+        'name': x['name'],
+        'salary': x['salary'],
+        'new salary': x['salary']*1.20
+    },risk
+)
+
+#STEP-4
+result=map(
+    lambda x: f"{x['name']} | old:{x['salary']} | new: {x['new salary']}",salary_increment
+)
+print(list(result))
