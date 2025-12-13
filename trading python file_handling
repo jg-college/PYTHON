@@ -1,0 +1,44 @@
+def reading(filename):
+    with open(filename, 'r') as f:
+        return f.readlines()
+
+def parsing(line):
+    pair,direction,risk,rr,result=line.strip().lower().split(',')
+    risk = float(risk)
+    rr = float(rr)
+    return pair,direction,risk,rr,result
+
+def writing(filename,text):
+    with open(filename, 'a') as f:
+        f.write(text+"\n")
+
+wins=0
+losses=0
+total_trades=0
+pnl=0.0
+
+open("wins.txt","w").close()
+open("losses.txt","w").close()
+
+lines=reading('Results.txt')
+for l in lines:
+    p,d,r,r1,r2=parsing(l)
+    if r2 == 'win':
+        wins+=1
+        writing('wins.txt',f"{p},{d},{r1}R")
+        total_trades+=1
+        profit=r*r1
+        pnl+=profit
+    elif r2 == 'loss':
+        losses+=1
+        writing('losses.txt',f"{p},{d},{r1}R")
+        total_trades+=1
+        pnl-=r
+
+print(f"Total trades: {total_trades}")
+print(f"Wins: {wins}")
+print(f"Losses: {losses}")
+print(f"Profit: {pnl}")
+
+winrate = (wins/total_trades)*100
+print(f"Winrate: {winrate:.2f}%")
