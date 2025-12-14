@@ -1,0 +1,50 @@
+from datetime import datetime
+
+def date_conversion(date_obj):
+    return datetime.strptime(date_obj, '%d-%m-%Y')
+
+def return_date(date_obj):
+    return datetime.strftime(date_obj, '%d/%b/%Y')
+
+dates = [
+    # original
+    "02-10-2025",
+    "21-07-2006",
+    "02-10-2025",
+    "15-03-2024",
+    "15-03-2024",
+    "09-12-2023",
+    "01-01-2025",
+    "21-07-2006",
+    "05-01-2025",
+    "18-01-2025",
+    "22-02-2024",
+    "10-02-2024",
+    "03-03-2024",
+    "28-03-2024",
+    "14-07-2006",
+    "30-07-2006",
+    "01-12-2023",
+    "25-12-2023",
+    "08-10-2025",
+    "19-10-2025"
+]
+dic={}
+for x in dates:
+    y=date_conversion(x)
+    if (y.year,y.month) not in dic:
+        dic[y.year,y.month]=[]
+    dic[y.year,y.month].append(y)
+
+
+for k in sorted(dic):
+    v = sorted(dic[k])
+
+    formatted = []
+    for x in v:
+        formatted.append(return_date(x))
+
+    year, month = k
+    label = datetime(year, month, 1).strftime("%b-%y")
+
+    print(label, formatted)
