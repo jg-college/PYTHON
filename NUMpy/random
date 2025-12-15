@@ -1,0 +1,19 @@
+import numpy as np
+
+#TASK-1
+np.random.seed(0)
+a=np.random.rand(5)
+print(a)
+
+#TASK-2
+print(np.random.randint(1,100,size=10))
+#TASK-3
+print(np.random.randn(8))
+#TASK-4
+choices=np.random.choice([0,1],20)
+print(choices)
+#TASK-5
+trades=np.random.choice([+1,-1],size=100,p=[0.35,0.65])
+trades1=np.cumsum(trades)
+print(trades)
+print(trades1)
