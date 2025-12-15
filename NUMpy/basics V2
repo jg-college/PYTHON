@@ -1,0 +1,12 @@
+import numpy as np
+
+#TASK-1
+print(np.zeros(6))
+#TASK-2
+print(np.ones([3,3]))
+#TASK-3
+print(np.arange(10,50,10))
+#TASK-4
+print(np.linspace(0,1,5))
+#TASK-5
+print(np.full([2,4],9))
