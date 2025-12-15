@@ -1,0 +1,25 @@
+import numpy as np
+
+a = np.array([1,2,3,4,5,6])
+b=a.reshape(3,2)
+print(b)
+flat=b.flatten()
+print(flat)
+rave=b.ravel()
+rave[0]=10
+print(rave)
+
+c=a.reshape((2,-1))
+print(c)
+
+a = np.array([1, 2, 3, 4, 5])
+b=a[1:4]
+print(b)
+b[0]=888
+print(a)
+
+c=a[1:4].copy()
+print(c)
+c[0]=999
+print(a)
+print(c)
