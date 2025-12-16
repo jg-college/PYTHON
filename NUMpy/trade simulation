@@ -1,0 +1,22 @@
+import numpy as np
+
+np.random.seed(42)
+
+trades = np.random.choice(
+    [+2, -1],
+    size=500,
+    p=[0.4, 0.6]
+)
+
+total_trades = trades.size
+wins = np.sum(trades == +2)
+losses = np.sum(trades == -1)
+
+win_rate = wins / total_trades
+expectancy = np.mean(trades)
+final_equity = np.sum(trades)
+
+equity = np.cumsum(trades)
+max_equity = np.maximum.accumulate(equity)
+drawdown = equity - max_equity
+max_drawdown = drawdown.min()
