@@ -1,0 +1,32 @@
+import pandas as pd
+import numpy as np
+
+df = pd.DataFrame({
+    "name": ["A", "B", "C", "D", "E"],
+    "score": [78, np.nan, 85, np.nan, 90],
+    "age": [20, 21, np.nan, 22, np.nan]
+})
+
+#TASK-1
+missing_count=df.isna().sum()
+print(missing_count)
+
+#TASK-2
+df_score_present=df.dropna(subset=["score"])
+print(df_score_present)
+
+#TASK-3
+df_filled=df.fillna({
+    "score": df["score"].mean(),
+    "age": df["age"].median()
+})
+print(df_filled)
+
+#TASK-4
+has_missing=df_filled.isna().any(axis=0)
+has_missing=has_missing.any(axis=0)
+print(has_missing)
+
+#TASK-5
+missing_percentage=df.isna().sum()/df.isna().count()*100
+print(missing_percentage)
