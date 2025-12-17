@@ -1,0 +1,27 @@
+import pandas as pd
+
+#TASK-1
+data = {
+    "name": ["A", "B", "C", "D"],
+    "score": [78, 92, 85, 60],
+    "age": [20, 21, 19, 22]
+}
+df=pd.DataFrame(data)
+print(df)
+
+#TASK-2
+score_series=df["score"]
+print('\n')
+print(score_series)
+
+#TASK-3
+high_scorers=df[df["score"]>=80]
+print('\n',high_scorers)
+
+#TASK-4
+df['score_plus_10']=df["score"]+10
+print('\n',df)
+
+#TASK-5
+first_two=df.iloc[:2]
+print('\n',first_two)
