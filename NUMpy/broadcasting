@@ -1,0 +1,26 @@
+import numpy as np
+
+#TASK-1
+data = np.array([
+    [10, 20, 30],
+    [40, 50, 60],
+    [70, 80, 90]
+])
+
+normalized=data-np.mean(data,axis=0)
+print(normalized)
+
+#TASK-2
+row_sum=np.sum(data,axis=1)
+row_mean=np.mean(data,axis=1)
+print(row_sum)
+print(row_mean)
+
+#TASK-3
+bias = np.array([1, 2, 3])
+out1=data+bias
+print(out1)
+
+bias_col = np.array([1, 2, 3]).reshape(-1, 1)
+out2=data+bias_col
+print(out2)
