@@ -1,0 +1,27 @@
+import numpy as np
+
+data = np.array([
+    [65, 70, 80],
+    [90, 85, 88],
+    [50, 60, 55],
+    [95, 92, 90]
+])
+
+#TASK-1
+passed_mark=data>=60
+print(passed_mark)
+
+#TASK-2
+pass_count=np.sum(passed_mark,axis=1)
+print(pass_count)
+
+#TASK-3
+strong_mask=pass_count == 3
+print(strong_mask)
+
+strong_students=data[strong_mask]
+print(strong_students)
+
+#TASK-4
+subject_avg=np.mean(strong_students,axis=0)
+print(subject_avg)
