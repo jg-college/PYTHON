@@ -1,0 +1,27 @@
+import pandas as pd
+
+df = pd.DataFrame({
+    "name": ["A", "B", "C", "D"],
+    "score": [78, 92, 85, 60],
+    "age": [20, 21, 19, 22]
+}, index=[101, 102, 103, 104])
+
+#TASK-1
+first_two_iloc=df.iloc[0:2]
+print(first_two_iloc)
+
+#TASK-2
+rows_101_103=df.loc[[101,103]]
+print(rows_101_103)
+
+#TASK-3
+slice_101_103=df.loc[101:103]
+print(slice_101_103)
+
+#TASK-4
+high_scorers=df.loc[df['score'] >= 80,['name','score']]
+print(high_scorers)
+
+#TASK-5
+age_subset=df.loc[[102,104],['age']]
+print(age_subset)
