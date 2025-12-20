@@ -1,0 +1,45 @@
+from unittest.mock import inplace
+
+import pandas as pd
+import numpy as np
+from pandas import value_counts
+
+# 1. Users
+users_df = pd.DataFrame({
+    'User_ID': [1, 2, 3, 4, 5],
+    'Country': ['USA', 'UK', 'India', 'Canada', 'USA'],
+    'Plan': ['Premium', 'Free', 'Premium', 'Premium', 'Premium']
+})
+
+# 2. Transactions
+trans_df = pd.DataFrame({
+    'User_ID': [1, 1, 3, 4, 4, 4],
+    'Amount_Paid': [30, 30, 100, 20, 20, 20] # User 1=60, 3=100, 4=60
+})
+
+# 3. Document Logs (Messy)
+logs_data = {
+    'User_ID': [1, 1, 1, 3, 4, 4, 5],
+    'Doc_Type': ['Passport', 'Passport', 'Visa', 'ID', 'License', 'License', 'Passport'],
+    'Doc_Status': ['Verified', 'Verified', 'PENDING', 'verified', 'VERIFIED', 'Verified', 'Verified']
+}
+logs_df = pd.DataFrame(logs_data)
+
+users_df=users_df[users_df['Plan'] != 'Free']
+print(users_df)
+
+logs_df['Doc_Status']=logs_df['Doc_Status'].str.lower()
+logs_df=logs_df[logs_df['Doc_Status']=='verified']
+logs_df.drop_duplicates(inplace=True)
+logs_df['Doc_Count']=logs_df.groupby('Doc_Type')['Doc_Type'].transform('count')
+print(logs_df)
+
+doc_Count_df=(logs_df.groupby('User_ID').size().reset_index(name='Doc_Count'))
+
+trans_df=trans_df.groupby('User_ID')['Amount_Paid'].sum()
+print(trans_df)
+
+result=users_df.merge(trans_df, on='User_ID',how='left').merge(doc_Count_df, on='User_ID',how='left')
+result=result.drop(columns=['Plan'])
+result=result[result['Doc_Count'] < 2]
+print(result)
