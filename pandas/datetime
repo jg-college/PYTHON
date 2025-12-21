@@ -1,0 +1,21 @@
+import pandas as pd
+
+data = {
+    'Doc_Name': ['Passport', 'Visa', 'Driver License', 'ID Card'],
+    'Expiry_Date': ['2026-01-15', '2025-12-10', '2028-05-20', '2025-12-21']
+}
+
+df = pd.DataFrame(data)
+
+# Today's Date
+today = pd.to_datetime('2025-12-21')
+
+# YOUR CODE HERE:
+# 1. Convert 'Expiry_Date' to datetime
+df['Expiry_Date']=pd.to_datetime(df['Expiry_Date'])
+
+df['Days_Remaining']=(df['Expiry_Date']-today).dt.days
+df=df[df['Days_Remaining']<=0]
+print(df)
+# 2. Subtract today from 'Expiry_Date' to get 'Days_Remaining'
+# 3. Use .dt.days to convert the result into an integer number of days
