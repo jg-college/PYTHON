@@ -1,0 +1,42 @@
+import pandas as pd
+import numpy as np
+
+students = pd.DataFrame({
+    "student_id": [1, 2, 3, 4],
+    "name": ["Raj", "Simran", "Amar", "Pooja"],
+    "city": ["Delhi", "Mumbai", "Delhi", "Mumbai"]
+})
+
+scores = pd.DataFrame({
+    "student_id": [1, 1, 2, 3, 5],
+    "subject": ["math", "english", "math", "math", "math"],
+    "score": [88, 90, 92, 79, 60]
+})
+
+df_left=pd.merge(students,scores,how='left',on="student_id")
+print(df_left)
+print('\n')
+
+math=df_left[df_left['subject']=='math']
+print(df_left)
+print('\n')
+
+df_outer=pd.merge(students,scores,how='outer',on="student_id")
+print('Before Source_flag')
+print(df_outer)
+print('\n')
+
+df_outer['source_flag']=np.select([df_outer[['name','score']].notna().all(axis=1),df_outer['score'].isna(),df_outer['name'].isna()],['both','only_students','only_scores'])
+print('After Source_flag')
+print(df_outer)
+print('\n')
+
+more_scores = pd.DataFrame({
+    "student_id": [2, 4],
+    "subject": ["english", "english"],
+    "score": [85, 91]
+})
+all_scores=pd.concat([scores,more_scores],ignore_index=True)
+print(all_scores)
+avg_scores=all_scores.groupby(['student_id'])['score'].mean()
+print(avg_scores)
