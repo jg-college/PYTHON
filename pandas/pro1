@@ -1,0 +1,28 @@
+import numpy as np
+import pandas as pd
+
+data = {
+    "name": ["Raj", "Simran", "Amar", "Pooja", "Vijay", "Anita"],
+    "city": ["Delhi", "Mumbai", "Delhi", "Mumbai", "Delhi", "Mumbai"],
+    "subject": ["math", "math", "english", "english", "math", "english"],
+    "score": [88, 92, 79, 95, 60, 85]
+}
+
+df = pd.DataFrame(data)
+
+total=df.groupby(['city'])['score'].sum()
+print(total)
+avg=df.groupby(['subject'])['score'].mean()
+print(avg)
+result=df.groupby(['city','subject']).agg(
+    n_students=('name','count'),
+    min_score=('score','min'),
+    max_score=('score','max')
+)
+print(result)
+
+df['pass_fail']=np.select([df['score']>=80],['pass'],default='fail')
+pass_fail_count=df.groupby(['city','pass_fail']).size()
+print(pass_fail_count)
+
+print(df)
