@@ -1,0 +1,61 @@
+import pandas as pd
+import numpy as np
+
+Data=[] #empty list for our data
+while True:
+    #   INPUT COLUMNS
+    date=input("Enter Date: ")
+    instrument=input("Enter Instrument: ")
+    direction=input("Enter Direction: ")
+    lot_size=input("Lot_Size: ")
+    entry_price=input("Entry_Price: ")
+    exit_price=input("Exit_Price: ")
+    ch=input("Do you want to continue? (y/n)") #runs untill user choose to exit
+    
+    #   INPUT CONVERSIONS TO THEIR RESPECTIVE TYPE
+    date=pd.to_datetime(date)
+    lot_size=pd.to_numeric(lot_size)
+    entry_price=pd.to_numeric(entry_price)
+    exit_price=pd.to_numeric(exit_price)
+    
+    #   PROFIT-LOSS LOGIC
+    if direction.lower()=="long": #CASE COVER
+        direction_sign=+1
+    else:
+        direction_sign=-1
+    PnL = (exit_price - entry_price) * lot_size*direction_sign
+    
+    #   APPENDING EVERYTHING INTO DIC
+    Data.append({
+        'date':date,
+        'instrument':instrument,
+        'direction':direction,
+        'lot_size':lot_size,
+        'entry_price':entry_price,
+        'exit_price':exit_price,
+        'PnL': PnL
+    })
+    if ch.lower()=='n': #CASE COVER
+        break
+
+Data=pd.DataFrame(Data) #converting to dataframe
+
+#   APPENDING CALCULATIVE COLUMNS TO DATAFRAME
+Data['Result']=np.select([Data['PnL']>0,Data['PnL']<0],['Profit','Loss'],default="Breakeven")
+Data['Equity']=5000+Data['PnL'].cumsum()
+Data['max_equity']=np.maximum.accumulate(Data['Equity'])
+
+#   FINAL OUTPUT
+final_balance=Data['Equity'].iloc[-1]
+win_percentage = (Data['Result'] == 'Profit').mean() * 100
+
+drawdown=Data['Equity']-Data['max_equity']
+max_drawdown=drawdown.min()
+
+#   PRINTING PART
+print(f"Final Balance: {final_balance:.2f}")
+print(f"Max Drawdown: {max_drawdown:.2f}")
+print(f"Win: {win_percentage:.2f}%")
+
+Data=Data.set_index('date')
+print(Data)
